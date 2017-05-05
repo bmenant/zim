@@ -24,7 +24,7 @@ zmodules=(archive directory environment git git-info history input utility custo
 #
 
 # Set your desired prompt here
-zprompt_theme='off'
+zprompt_theme='liquidprompt'
 
 #
 # Completion
