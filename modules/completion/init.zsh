@@ -14,6 +14,7 @@ fi
 
 # add the completions to the fpath
 fpath=(${0:h}/external/src ${fpath})
+fpath=(${0:h}/others ${fpath})
 
 # load and initialize the completion system
 autoload -Uz compinit && compinit -C -d "${ZDOTDIR:-${HOME}}/${zcompdump_file:-.zcompdump}"
