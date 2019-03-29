@@ -1,10 +1,10 @@
 git
 ===
 
-Provides nice git aliases and functions.
+Provides handy git aliases and functions.
 
 Many thanks to [Sorin Ionescu](https://github.com/sorin-ionescu) for the
-excellent aliases.
+excellent original aliases.
 
 Aliases
 -------
@@ -71,7 +71,9 @@ Aliases
   * `gf` downloads objects and references from another repository.
   * `gfc` clones a repository into a new directory.
   * `gfm` fetches from and merges with another repository or local branch.
-  * `gfr` fetches from and rebases on another repository or local branch.
+  * `gfr` fetches from and rebases on top of another repository or local branch.
+  * `gfu` removes unexisting remote-tracking references, fetches all remotes and
+    merges.
 
 ### Grep
 
@@ -105,20 +107,25 @@ Aliases
   * `glG` displays the graph log with authors and dates.
   * `glv` displays the log verifying the GPG signature of commits.
   * `glc` displays the commit count for each contributor in descending order.
+  * `glr` manages reflog information.
 
 ### Merge
 
   * `gm` joins two or more development histories together.
+  * `gma` aborts the conflict resolution, and reconstructs the pre-merge state.
   * `gmC` performs the merge but does not commit.
   * `gmF` performs the merge generating a commit even if the merge resolved as a
     fast-forward.
-  * `gma` aborts the conflict resolution, and reconstructs the pre-merge state.
+  * `gmS` commits with GPG signature.
+  * `gmv` verifies the GPG signature of the tip commit of the side branch being
+    merged.
   * `gmt` runs the merge conflict resolution tools to resolve conflicts.
 
 ### Push
 
   * `gp` updates remote refs along with associated objects.
-  * `gpf` forces a push.
+  * `gpf` forces a push safely (with "lease").
+  * `gpF` forces a push.
   * `gpa` pushes all branches.
   * `gpA` pushes all branches and tags.
   * `gpt` pushes all tags.
@@ -170,7 +177,7 @@ Aliases
   * `gSl` lists the commits of all submodules.
   * `gSm` moves a submodule.
   * `gSs` synchronizes submodules' remote URL to the value specified in
-    .gitmodules.
+    `.gitmodules`.
   * `gSu` fetches and merges the latest changes for all submodules.
   * `gSx` removes a submodule.
 
@@ -201,23 +208,27 @@ Aliases
 
   * `g..` changes the current directory to the top level of the working tree.
 
-### Shadows
+Settings
+--------
 
-The following aliases may shadow system commands:
-
-  * `gpt` shadows the GUID partition table maintenance utility.
-  * `gs` shadows Ghostscript.
-
-If you frequently use the above commands, you may wish to remove said aliases
-from this module or to disable them at the bottom of the zshrc with `unalias`.
+By default, all aliases are defined with a `g` prefix, as you can see above. But
+some of the default aliases may shadow system commands, like `gpt` for the GUID
+partition table maintenance utility.
 
 You can temporarily bypass an alias by prefixing it with a backward slash:
 `\gpt`.
+
+Or you can use the following zstyle if you wish to customize the prefix used to
+define all aliases:
+
+    zstyle ':zim:git' aliases-prefix 'G'
 
 Functions
 ---------
 
   * `git-branch-current` displays the current branch.
+  * `git-branch-delete-interactive` asks for confirmation to also delete the
+    upstream remote branch(es).
   * `git-dir` displays the path to the Git directory.
   * `git-ignore-add` adds any arguments to the .gitignore in the project root.
   * `git-root` displays the path to the working tree root.
