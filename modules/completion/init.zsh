@@ -19,26 +19,23 @@ fpath=(${0:h}/others ${fpath})
 # load and initialize the completion system
 autoload -Uz compinit && compinit -C -d "${ZDOTDIR:-${HOME}}/${zcompdump_file:-.zcompdump}"
 
-# set any compdefs
-source ${0:h}/compdefs.zsh
-
 
 #
 # zsh options
 #
 
-# If a completion is performed with the cursor within a word, and a full completion is inserted,
-# the cursor is moved to the end of the word
+# If a completion is performed with the cursor within a word, and a full
+# completion is inserted, the cursor is moved to the end of the word.
 setopt ALWAYS_TO_END
 
 # Perform a path search even on command names with slashes in them.
 setopt PATH_DIRS
 
 # Make globbing (filename generation) not sensitive to case.
-unsetopt CASE_GLOB
+setopt NO_CASE_GLOB
 
 # Don't beep on an ambiguous completion.
-unsetopt LIST_BEEP
+setopt NO_LIST_BEEP
 
 
 #
@@ -93,3 +90,8 @@ zstyle ':completion:*:history-words' menu yes
 # ignore multiple entries.
 zstyle ':completion:*:(rm|kill|diff):*' ignore-line other
 zstyle ':completion:*:rm:*' file-patterns '*:all-files'
+
+# If the _my_hosts function is defined, it will be called to add the ssh hosts
+# completion, otherwise _ssh_hosts will fall through and read the ~/.ssh/config
+zstyle -e ':completion:*:*:ssh:*:my-accounts' users-hosts \
+  '[[ -f ${HOME}/.ssh/config && ${key} == hosts ]] && key=my_hosts reply=()'
